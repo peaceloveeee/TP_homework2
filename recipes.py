@@ -26,14 +26,52 @@ class Ingredient:
             return False
         return self.name == other.name and self.unit == other.unit
 
-flour = Ingredient("Мука", 500, "г")
-print(flour)
-print(repr(flour))
 
-same_flour = Ingredient("Мука", 1000, "г")
-sugar = Ingredient("Сахар", 500, "г")
+class Recipe:
+    def __init__(self, title: str, ingredients=None):
+        self.title = title
+        if ingredients is None:
+            self.ingredients = []
+        else:
+            self.ingredients = ingredients
 
-print(flour == same_flour)
-print(flour == sugar)
+    def add_ingredient(self, ingredient):
+        for el in self.ingredients:
+            if el == ingredient:
+                el.quantity += ingredient.quantity
+                return
+        self.ingredients.append(ingredient)
+    
+    @staticmethod
+    def is_valid_ratio(ratio):
+        return (isinstance(ratio, (int, float)) and ratio > 0)
+    
+    def scale(self, ratio: float):
+        if not(self.is_valid_ratio(ratio)):
+            raise ValueError("Ожидалось положительное число")
+        new_ingredients = []
+        for el in self.ingredients:
+            new_ingredients.append(Ingredient(el.name, el.quantity * ratio, el.unit))
+        return Recipe(self.title, new_ingredients)
+        
+    def __len__(self):
+        return len(self.ingredients)
+    
+    def __str__(self):
+        return f"{self.title}: {', '.join(str(el) for el in self.ingredients)}"
+
     
 
+recipe = Recipe("Пицца")
+
+recipe.add_ingredient(Ingredient("Мука", 500, "г"))
+recipe.add_ingredient(Ingredient("Мука", 200, "г"))
+recipe.add_ingredient(Ingredient("Сыр", 100, "г"))
+
+print(recipe)
+print(len(recipe))
+
+scaled = recipe.scale(2)
+
+print(scaled)
+print(recipe)
