@@ -113,14 +113,3 @@ class DietaryRecipe(Recipe):
         s1 = super().__str__()
         return f"[{self.diet_type}] {s1}"
     
-vegan_pizza = DietaryRecipe("Пицца", "веган")
-vegan_pizza.add_ingredient(Ingredient("Мука", 500, "г"))
-vegan_pizza.add_ingredient(Ingredient("Томат", 200, "г"))
-
-scaled = vegan_pizza.scale(2)
-
-print(vegan_pizza)
-print(scaled)
-
-print(type(scaled))
-print(scaled.diet_type)
