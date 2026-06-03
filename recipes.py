@@ -59,3 +59,62 @@ class Recipe:
     
     def __str__(self):
         return f"{self.title}: {', '.join(str(el) for el in self.ingredients)}"
+    
+
+class ShoppingList:
+    def __init__(self):
+        self._items = []
+    
+    def add_recipe(self, recipe, portions):
+        if portions <= 0:
+            raise ValueError("Количество порций должно быть положительным")
+        recipe2 = recipe.scale(portions)
+        for el in recipe2.ingredients:
+            self._items.append((el, recipe2.title))
+    
+    def remove_recipe(self, title):
+        new_items = []
+        for el in self._items:
+            if el[1] != title:
+                new_items.append(el)
+        self._items = new_items
+        return
+    
+    def get_list(self):
+        shops = {}
+        for ingred, title in self._items:
+            key = (ingred.name, ingred.unit)
+            if key in shops.keys():
+                shops[key] += ingred.quantity
+            else:
+                shops[key] = ingred.quantity
+        rez = []
+        for key, quantity in shops.items():
+            rez.append(Ingredient(key[0], quantity, key[1]))
+        rez.sort(key=lambda x: x.name)
+        return rez
+
+
+    def __add__(self, other):
+        newitems = self._items + other._items
+        return ShoppingList(newitems)
+    
+
+pizza = Recipe("Пицца")
+pizza.add_ingredient(Ingredient("Мука", 500, "г"))
+pizza.add_ingredient(Ingredient("Сыр", 200, "г"))
+
+pasta = Recipe("Паста")
+pasta.add_ingredient(Ingredient("Сыр", 100, "г"))
+pasta.add_ingredient(Ingredient("Макароны", 300, "г"))
+
+shopping_list = ShoppingList()
+shopping_list.add_recipe(pizza, 2)
+shopping_list.add_recipe(pasta, 1)
+
+for ingredient in shopping_list.get_list():
+    print(ingredient)
+    
+        
+
+        
