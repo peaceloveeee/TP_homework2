@@ -25,7 +25,7 @@ git clone https://github.com/peaceloveeee/TP_homework2.git
 Перейти в папку проекта:
 
 ```bash
-cd tp_homework2
+cd TP_homework2
 ```
 
 Установить зависимости:
