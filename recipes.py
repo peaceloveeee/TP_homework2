@@ -98,4 +98,29 @@ class ShoppingList:
     def __add__(self, other):
         newitems = self._items + other._items
         return ShoppingList(newitems)
+
+
+class DietaryRecipe(Recipe):
+    def __init__(self, title, diet_type, ingredients=None):
+        super().__init__(title, ingredients)
+        self.diet_type = diet_type
     
+    def scale(self, ratio: float):
+        recipe2 = super().scale(ratio)
+        return DietaryRecipe(recipe2.title, self.diet_type, recipe2.ingredients)
+    
+    def __str__(self):
+        s1 = super().__str__()
+        return f"[{self.diet_type}] {s1}"
+    
+vegan_pizza = DietaryRecipe("Пицца", "веган")
+vegan_pizza.add_ingredient(Ingredient("Мука", 500, "г"))
+vegan_pizza.add_ingredient(Ingredient("Томат", 200, "г"))
+
+scaled = vegan_pizza.scale(2)
+
+print(vegan_pizza)
+print(scaled)
+
+print(type(scaled))
+print(scaled.diet_type)
