@@ -96,8 +96,9 @@ class ShoppingList:
 
 
     def __add__(self, other):
-        newitems = self._items + other._items
-        return ShoppingList(newitems)
+        list2 = ShoppingList()
+        list2._items = self._items + other._items
+        return list2
 
 
 class DietaryRecipe(Recipe):
