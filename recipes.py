@@ -99,22 +99,3 @@ class ShoppingList:
         newitems = self._items + other._items
         return ShoppingList(newitems)
     
-
-pizza = Recipe("Пицца")
-pizza.add_ingredient(Ingredient("Мука", 500, "г"))
-pizza.add_ingredient(Ingredient("Сыр", 200, "г"))
-
-pasta = Recipe("Паста")
-pasta.add_ingredient(Ingredient("Сыр", 100, "г"))
-pasta.add_ingredient(Ingredient("Макароны", 300, "г"))
-
-shopping_list = ShoppingList()
-shopping_list.add_recipe(pizza, 2)
-shopping_list.add_recipe(pasta, 1)
-
-for ingredient in shopping_list.get_list():
-    print(ingredient)
-    
-        
-
-        
