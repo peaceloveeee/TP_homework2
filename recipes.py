@@ -59,19 +59,3 @@ class Recipe:
     
     def __str__(self):
         return f"{self.title}: {', '.join(str(el) for el in self.ingredients)}"
-
-    
-
-recipe = Recipe("Пицца")
-
-recipe.add_ingredient(Ingredient("Мука", 500, "г"))
-recipe.add_ingredient(Ingredient("Мука", 200, "г"))
-recipe.add_ingredient(Ingredient("Сыр", 100, "г"))
-
-print(recipe)
-print(len(recipe))
-
-scaled = recipe.scale(2)
-
-print(scaled)
-print(recipe)
